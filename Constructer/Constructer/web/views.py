@@ -15,13 +15,10 @@ def home(request):
     return render(request, 'web/home.html', context)
 
 def welcome_register(request):
-    form = {
-
-    }
     context = {
         'title': 'Welcome',
         'header_name': 'Здравствуйте.',
-        'form': form
+        'form': UserCreationForm()
     }
     return render(request, 'web/welcome.html', context)
 
