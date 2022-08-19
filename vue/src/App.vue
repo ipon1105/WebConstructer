@@ -87,8 +87,7 @@ body{
 }
 
 .objectMenu{
-  background-color: blueviolet;
-  width: 20%;
-  border: 2px solid black;
+  background-color: #1C2A33;
+  width: 18%;
 }
 </style>

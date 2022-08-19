@@ -18,15 +18,22 @@
 
         <div>
             <div>
-                <p>Ширина</p>
-                <input type="input" v-model="width"/>
-                <p>Высота</p>
-                <input type="input" v-model="height"/>
-
-                <p>X</p>
-                <input type="input" v-model="x"/>
-                <p>Y</p>
-                <input type="input" v-model="y"/>
+                <div>
+                    <p>Ширина : </p>
+                    <input type="input" v-model="width"/>
+                </div>
+                <div>
+                    <p>Высота : </p>
+                    <input type="input" v-model="height"/>
+                </div>
+                <div>
+                    <p>X : </p>
+                    <input type="input" v-model="x"/>
+                </div>
+                <div>
+                    <p>Y : </p>
+                    <input type="input" v-model="y"/>
+                </div>
             </div>
         </div>
         
@@ -122,27 +129,87 @@
 
 <style scoped>
     .widjetsMenu{
-        width:15%;
-        padding: 10%;
+        width:95%;
+        padding-left: 5%;
     }
 
     p{
-        font-size: 1em;
-        color: black;
+        font-size: 0.9em;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: #D4E6ED;
+        margin-top: 10%;
+        display: inline-block;
     }
 
     .palitra{
         margin-top: 10%;
-        background-color: brown;
-        width: 400%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        border: 1px solid black;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .palitraElement{
-        /* border: 1px solid black; */
-        padding: 50%; 
-        /* height: 25px; */
+        padding: 6%;
+        margin: 3%;
+        border-radius: 50%;
+    }
+
+    input[type=input]{
+        width: 20%;
+        border: 1px solid #2A4164; 
+        background-color: #2d4554;
+        color: #FFFFFF;
+        border-radius: 5%;
+        display: inline-block;
+    }
+
+    button{
+        margin-top: 10%;
+        background-color: #177ab3;
+        border: 2px solid #FFFFFF ;
+        color: #FFFFFF;
+        border-radius: 4%;
+        padding: 3%;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    button:hover{
+        background-color: #2e80b0;
+        color: #185578;
+    }
+
+    input[type=range] {
+    -webkit-appearance: none; /* Скрывает слайдер, чтобы можно было создать свой */
+    width: 50%; /* Указание параметра ширины требуется для Firefox. */
+    }
+    
+    input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    }
+    
+    input[type=range]:focus {
+    outline: none; /* Убирает голубую границу у элемента. Хотя, возможно, и стоит создавать некоторое оформления для состояния фокуса в целях обеспечения доступности. */
+    }
+    
+    input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    background: transparent; /* Скрывает слайдер, чтобы можно было добавить собственные стили. */
+    border-color: transparent;
+    color: transparent;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #134969;
+    height: 15px;
+    width: 16px;
+    border-radius: 50%;
+    background: #2796d6;
+    cursor: pointer;
+    margin-top: -5px; 
+    margin-bottom: -5px;
+
     }
 </style>
