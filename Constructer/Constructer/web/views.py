@@ -7,7 +7,11 @@ from django.views import View
 
 
 def home(request):
-    return render(request, 'web/home.html')
+    context = {
+        'title':'Домашняя страница',
+        'projects': []
+    }
+    return render(request, 'web/home.html', context)
 
 
 def constructer(request):
@@ -15,6 +19,11 @@ def constructer(request):
 
 
 def welcome(request):
+    return render(request, 'web/welcome.html')
+
+
+def logout(request):
+
     return render(request, 'web/welcome.html')
 
 '''class Register(View):
