@@ -63,7 +63,20 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
-}   
+}
+
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'RootConstructer',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
+    }
+}
+'''
 
 AUTH_PASSWORD_VALIDATORS = [
     {
