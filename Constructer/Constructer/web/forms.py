@@ -7,3 +7,5 @@ User = get_user_model()
 class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
+
+

@@ -5,13 +5,25 @@ from django.views import View
 
 
 def home(request):
-    # TODO: переменная projects - хранит массив всех проектов пользователя
+    # переменная projects - хранит массив всех проектов пользователя
+
     context = {
         'user': {},
         'title': 'Домашняя страница',
         'projects': []
     }
     return render(request, 'web/home.html', context)
+
+def welcome_register(request):
+    form = {
+
+    }
+    context = {
+        'title': 'Welcome',
+        'header_name': 'Здравствуйте.',
+        'form': form
+    }
+    return render(request, 'web/welcome.html', context)
 
 
 def constructer(request):
