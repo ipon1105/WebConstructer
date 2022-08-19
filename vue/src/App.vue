@@ -9,13 +9,14 @@
     <!-- Блок с текстом -->
     <!-- id, xCoord, yCoord это пропсы из TextBlock.vue -->
       <div v-if="items.length > 0">
-        <MovableBlock
+        <TextBlock
           v-for="item in items"
           :key="item.id"
           :id="item.id"
           :selected-object-id="selectedObjectId"
           @object-selection="objectSelection"
-        ></MovableBlock>
+          @delete-element="deleteElement"
+        ></TextBlock>
       </div>
     </div>
     <div class="objectMenu" id="optionsMenu">
@@ -26,14 +27,14 @@
 
 <script>
 
-import MovableBlock from '@/components/MovableBlock.vue'
+import TextBlock from '@/components/TextBlock.vue'
 import WidjetsMenu from '@/components/WidjetsMenu.vue'
 
 
 export default {
   name: 'App',
   components: {
-    MovableBlock,
+    TextBlock,
     WidjetsMenu,
   },
   data (){
@@ -46,11 +47,15 @@ export default {
   methods: {
     addText () { // Добавление текстового блока
       this.items.push({ // Запись нового элемента в массив объектов
-        id: this.items.length, 
+        id: this.items.length,
+        name: null
       })
     },
     objectSelection (id) {
       this.selectedObjectId = id
+    },
+    deleteElement (id) {
+      this.items.splice(id, 1)
     }
   },
 }

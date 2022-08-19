@@ -38,6 +38,17 @@
 
 <script>
     export default {
+        props: {
+            size: {
+                default: () => ({})
+            },
+            pos: {
+                default: () => ({})
+            },
+            styles: {
+                default: () => ({})
+            },
+        },
         data: () => ({
             width: 0,
             height: 0,
@@ -48,20 +59,25 @@
                             '#800080', '#000080', '#FF0000', '#FFFF00', '#808000',
                             '#00FF00', '#008000', '#0000FF', '#FF4500', '#8B0000'],
         }),
+        mounted () {
+        },
         methods: {
             changeSize (data) {
                 this.$emit('changeSize', data)
             },
-            deleteElement(){
+            deleteElement () {
                 this.$emit('deleteElement', this.id)
             },
-            changeStyle (data){
+            changeStyle (data) {
                 this.$emit('changeStyle', data)
             },
             changeColorText (newValue) {
                 this.changeStyle ({
                     color: newValue
                 })
+            },
+            processWidth () {
+                
             }
         },
         watch: {
@@ -79,6 +95,26 @@
                 this.changeStyle({
                     fontSize: newValue
                 })
+            },
+            pos: {
+                handler (newValue) {
+                    this.x = newValue.x
+                    this.y = newValue.y
+                }, 
+                deep: true
+            },
+            styles: {
+                handler (newValue) {
+                    this.fontSize = newValue.fontSize
+                }, 
+                deep: true
+            },
+            size: {
+                handler (newValue) {
+                    this.width = newValue.width
+                    this.height = newValue.height
+                }, 
+                deep: true
             },
         },
     }

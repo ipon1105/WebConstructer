@@ -1,39 +1,41 @@
 <template>
-        <div
-            :class="{
-                'block': true,
-                'block-selected': isElSelected || isDrag,
-            }" 
-            :style="[movableStyles, transform]"
-            tabindex="0"
-            @mousedown="dragMouseDown"
-            @mousemove="dragMouseMove"
-            @mouseup="dragMouseUp"
-            @focus="objectSelection"
-            @blur="objectUnselect"
-        >
-            <div v-if="(isElSelected && !isDrag) || isSizeChange">
-                <div
-                    v-for="pointer in sizeChangePointers"
-                    :key="pointer.direction"
-                    :class="['pointer', pointer.direction]"
-                    :style="pointer.style"
-                    @mousedown="sizeChangeMouseDown($event, pointer.direction)"
-                    @mouseup="sizeChangeMouseUp"
-                    @mousemove="sizeChangeMouseMove"
-                >
-                </div>
+    <div
+        :class="{
+            'block': true,
+            'block-selected': isElSelected || isDrag,
+        }" 
+        :style="[movableStyles, transform]"
+        tabindex="0"
+        @mousedown="dragMouseDown"
+        @mousemove="dragMouseMove"
+        @mouseup="dragMouseUp"
+        @focus="objectSelection"
+        @keyup.delete="deleteBlock"
+        @blur="objectUnselect"
+    >
+        <div v-if="(isElSelected && !isDrag) || isSizeChange">
+            <div
+                v-for="pointer in sizeChangePointers"
+                :key="pointer.direction"
+                :class="['pointer', pointer.direction]"
+                :style="pointer.style"
+                @mousedown="sizeChangeMouseDown($event, pointer.direction)"
+                @mouseup="sizeChangeMouseUp"
+                @mousemove="sizeChangeMouseMove"
+            >
+            </div>
 
-                <div
-                    class="pointer rotate-pointer"
-                    :style="rotatePointerStyle"
-                    @mousedown="rotateMouseDown"
-                    @mouseup="rotateMouseUp"
-                    @mousemove="rotateMouseMove"
-                >
-                </div>
+            <div
+                class="pointer rotate-pointer"
+                :style="rotatePointerStyle"
+                @mousedown="rotateMouseDown"
+                @mouseup="rotateMouseUp"
+                @mousemove="rotateMouseMove"
+            >
             </div>
         </div>
+        <slot></slot>
+    </div>
 </template>
 
 <script>
@@ -236,17 +238,20 @@ export default{
             this.$emit('stateChange')
             this.isRotate = false
         },
+        deleteBlock () {
+            this.$emit('deleteElement')
+        }
     },
 
     watch: {
         pos: {
-            handle (newValue) {
+            handler (newValue) {
                 this.innerPos = newValue
             },
             deep: true
         },
         size: {
-            handle (newValue) {
+            handler (newValue) {
                 this.innerSize = newValue
             },
             deep: true

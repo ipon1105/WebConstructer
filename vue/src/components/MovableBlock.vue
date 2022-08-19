@@ -6,12 +6,16 @@
             :styles="styles"
             :pos="pos"
             @object-selected="objectSelection"
+            @deleteElement="deleteElement"
         >
-            <slot />
+            <slot></slot>
         </Movable>
         <div v-if="id == selectedObjectId">
             <Teleport to="#optionsMenu">
                 <BlockMenu
+                    :size="size"
+                    :styles="styles"
+                    :pos="pos"
                     @deleteElement="deleteElement"
                     @changeSize="changeSize"
                     @changeStyle="changeStyle"
@@ -71,7 +75,7 @@ export default {
             this.pos[Object.keys(data)[0]] = data[Object.keys(data)[0]]
         },
         deleteElement () {
-            this.$emit('deleteBlock', this.id)
+            this.$emit('deleteElement', this.id)
         },
     }
 }
