@@ -1,6 +1,7 @@
 <template>
-    <MovableBlock>
-        <input type="input" v-model="value"/>
+    <MovableBlock contenteditable>
+        <!-- <p contenteditable>{{value}}</p> -->
+        {{value}}
     </MovableBlock>
 </template>
 
@@ -18,5 +19,10 @@ export default {
 </script>
 
 <style>
-
+    /* p{
+        margin: 0;
+    } */
+    MovableBlock{
+        overflow:hidden;
+    }
 </style>

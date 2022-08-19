@@ -1,9 +1,10 @@
 <template>
     <div class="widjetsMenu">
-        <p>Размер шрифта: {{fontSize}}px</p>
+        <p>Размер шрифта: {{fontSize}}</p>
 
         <input type="range" min="1" max="100"
-                v-model="fontSize"/>
+                v-model="fontSize"
+                @change="changeFontSize($event)"/>
 
         <div class="palitra">
             <div 
@@ -59,7 +60,7 @@
         data: () => ({
             width: 0,
             height: 0,
-            fontSize: 0,
+            fontSize: 12,
             x: 0,
             y: 0,
             colorBase: ['#FFFFFF', '#000000', '#808080', '#C0C0C0', '#FF00FF', 
@@ -81,6 +82,11 @@
             changeColorText (newValue) {
                 this.changeStyle ({
                     color: newValue
+                })
+            },
+            changeFontSize(event) {
+                this.changeStyle({
+                    fontSize: event.target.value + 'px'
                 })
             },
             processWidth () {
