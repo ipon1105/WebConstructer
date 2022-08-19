@@ -6,7 +6,12 @@ SECRET_KEY = 'django-insecure-&1er*kxgfhn5g=n*!d#4rjh)(yn4&6k(!3_nrq2%e@=&fx2%!o
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['26.243.23.165', '127.0.0.1', '26.201.95.135']
+
+# TODO: Удалить, если не надо.
+# AUTH_USER_MODEL = 'users.User'
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -15,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'users'
 ]
 
 MIDDLEWARE = [
@@ -32,6 +38,7 @@ ROOT_URLCONF = 'Constructer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        #'DIRS': [BASE_DIR / 'templates'],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -54,7 +61,7 @@ DATABASES = {
         'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '5432'
     }
 }
 
