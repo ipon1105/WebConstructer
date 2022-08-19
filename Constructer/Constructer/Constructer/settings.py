@@ -1,5 +1,7 @@
 from pathlib import Path
 
+AUTH_USER_MODEL = 'web.User'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-&1er*kxgfhn5g=n*!d#4rjh)(yn4&6k(!3_nrq2%e@=&fx2%!o'
@@ -7,11 +9,6 @@ SECRET_KEY = 'django-insecure-&1er*kxgfhn5g=n*!d#4rjh)(yn4&6k(!3_nrq2%e@=&fx2%!o
 DEBUG = True
 
 ALLOWED_HOSTS = ['26.243.23.165', '127.0.0.1', '26.201.95.135']
-
-# TODO: Удалить, если не надо.
-# AUTH_USER_MODEL = 'users.User'
-# LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,22 +1,26 @@
+from .forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
-
-# Create your views here.
-#from users.froms import UserCreationForm
 
 
 def home(request):
     context = {
         'user': {},
-        'title':'Домашняя страница',
+        'title': 'Домашняя страница',
         'projects': []
     }
     return render(request, 'web/home.html', context)
 
 
 def constructer(request):
-    return render(request, 'web/constructor.html')
+    # TODO: Если пользователь не вошёл, то переслать на страницу welcome.html
+    context = {
+        'user': {},
+        'title': 'Конструктор',
+        'projects': []
+    }
+    return render(request, 'web/constructor.html', context)
 
 
 def welcome(request):
@@ -28,7 +32,11 @@ def welcome(request):
 
 
 def register(request):
-    return render(request, 'web/welcome.html')
+    context = {
+        'title': 'Welcome',
+        'header_name': 'Регистрация.',
+    }
+    return render(request, 'web/register.html', context)
 
 
 def logout(request):
@@ -40,26 +48,27 @@ def login(request):
 
     return render(request, 'web/welcome.html')
 
-'''class Register(View):
-    template_name = 'registration/register.html'
+
+class Register(View):
+    template_name = 'web/register.html'
+
     def get(self, request):
-        context={
+        context = {
             'form': UserCreationForm()
         }
         return render(request, self.template_name, context)
 
     def post(self, request):
-
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username=form.cleaned_data.get('username')
-            password=form.cleaned_data.get('password1')
-            user=authenticate(username=username, password=password)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('home')
 
-        context={
+        context = {
             'form': form
         }
-        return render(request, self.template_name, context)'''
+        return render(request, self.template_name, context)
