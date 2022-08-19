@@ -9,5 +9,6 @@ urlpatterns = [
     path('welcome', views.welcome, name="welcome"),
     path('home', views.home, name="home"),
     path('constructer', views.constructer, name="constructer"),
-    path('register', Register.as_view(), name="register")
+    path('register', Register.as_view(), name="register"),
+    path('', views.login, name="login")
 ]

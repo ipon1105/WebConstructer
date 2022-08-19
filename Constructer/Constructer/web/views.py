@@ -31,6 +31,14 @@ def welcome(request):
     return render(request, 'web/welcome.html', context)
 
 
+def login(request):
+    context = {
+        'title': 'Welcome',
+        'header_name': 'Здравствуйте.',
+    }
+    return render(request, 'web/login.html', context)
+
+
 class Register(View):
     template_name = 'web/register.html'
 
