@@ -8,6 +8,7 @@ from django.views import View
 
 def home(request):
     context = {
+        'user': {},
         'title':'Домашняя страница',
         'projects': []
     }
@@ -19,10 +20,23 @@ def constructer(request):
 
 
 def welcome(request):
+    context = {
+        'title': 'Welcome',
+        'header_name': 'Здравствуйте.',
+    }
+    return render(request, 'web/welcome.html', context)
+
+
+def register(request):
     return render(request, 'web/welcome.html')
 
 
 def logout(request):
+
+    return render(request, 'web/welcome.html')
+
+
+def login(request):
 
     return render(request, 'web/welcome.html')
 
