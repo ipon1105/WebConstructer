@@ -31,24 +31,6 @@ def welcome(request):
     return render(request, 'web/welcome.html', context)
 
 
-def register(request):
-    context = {
-        'title': 'Welcome',
-        'header_name': 'Регистрация.',
-    }
-    return render(request, 'web/register.html', context)
-
-
-def logout(request):
-
-    return render(request, 'web/welcome.html')
-
-
-def login(request):
-
-    return render(request, 'web/welcome.html')
-
-
 class Register(View):
     template_name = 'web/register.html'
 
