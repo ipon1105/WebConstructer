@@ -5,6 +5,7 @@ from django.views import View
 
 
 def home(request):
+    # TODO: переменная projects - хранит массив всех проектов пользователя
     context = {
         'user': {},
         'title': 'Домашняя страница',
@@ -14,13 +15,14 @@ def home(request):
 
 
 def constructer(request):
-    # TODO: Если пользователь не вошёл, то переслать на страницу welcome.html
+    if request.user.id == None:
+        return redirect('welcome')
+
     context = {
-        'user': {},
         'title': 'Конструктор',
-        'projects': []
+        'header_name': 'Конструктор'
     }
-    return render(request, 'web/constructor.html', context)
+    return render(request, 'web/constructer.html', context)
 
 
 def welcome(request):
@@ -32,6 +34,7 @@ def welcome(request):
 
 
 def login(request):
+
     context = {
         'title': 'Welcome',
         'header_name': 'Здравствуйте.',

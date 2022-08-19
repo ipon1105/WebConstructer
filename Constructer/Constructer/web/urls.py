@@ -10,5 +10,5 @@ urlpatterns = [
     path('home', views.home, name="home"),
     path('constructer', views.constructer, name="constructer"),
     path('register', Register.as_view(), name="register"),
-    path('', views.login, name="login")
+    path('login', views.login, name="logi   n")
 ]
