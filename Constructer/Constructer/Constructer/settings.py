@@ -57,9 +57,9 @@ WSGI_APPLICATION = 'Constructer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'RootConstructer',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'pgAdmin',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
