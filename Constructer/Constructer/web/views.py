@@ -15,24 +15,23 @@ from .models import Widget
 
 
 class HeroViewSet(viewsets.ModelViewSet):
-    queryset = Widget.objects.all().order_by('title')
+    queryset = Widget.objects.all().order_by('id')
     serializer_class = HeroSerializer
+
+# TODO: Добавить обработчик сериализированных данных для WidgetProperty
+
+
+# TODO: Добавить обработчик сериализированных данных для Project
 
 
 def getProjectsById(id):
     return Project.objects.filter(user_id=id)
 
+# TODO: Удаление проектов
 
-def del_click(request, pk):
-    getProjectsById(request.user.id).filter(id=pk).delete()
-    return redirect('home')
+# TODO: Изменение проектов
 
-
-'''
-                    <!-- <a href="{% url del_click  {{el.id}}.pk%}"><button type="submit" class="btn btn-danger">Удалить</button></a> -->
-                    <!-- <a href="{% url edit_click {{el.id}}.pk%}"><button type="submit" class="btn btn-success">Изменить</button></a> -->
-'''
-
+# TODO: Перенаправлять на новую страницу
 
 def home(request):
     if request.user.id == None:
