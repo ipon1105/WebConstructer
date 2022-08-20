@@ -1,6 +1,20 @@
 <template>
+<<<<<<< HEAD
     <BlockMovable @change-styles="changeStyles">
         <textarea :style="styles" v-model="value">
+=======
+    <BlockMovable
+        @change-styles="changeStyles"
+        :innerSelection="isSelected"
+    >
+        <textarea
+            :style="styles"
+            v-model="value"
+            @focus="onFocus"
+            @blur="onBlur"
+        >
+
+>>>>>>> 816ac6bfc1de4c860a17633d6e92ba167bda4632
         </textarea>
     </BlockMovable>
 </template>
@@ -13,10 +27,11 @@ export default {
         BlockMovable
     },
     data: () => ({
-        value: 'bebra',
+        value: 'Sample',
         styles: {
             default: () => ({})
         },
+        isSelected: false,
     }),
     methods :{
         changeStyles(data){
@@ -28,6 +43,12 @@ export default {
             this.styles.borderRadius = data.borderRadius
             this.styles.zIndex = data.zIndex
             this.styles.textAlign = data.textAlign
+        },
+        onFocus () {
+            this.isSelected = true
+        },
+        onBlur () {
+            this.isSelected = false
         },
     }
 }
