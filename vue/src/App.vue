@@ -1,61 +1,103 @@
 <template>
-  <div class="all"> 
+  <div
+    class="all"
+    :style="windowStyle"
+  > 
     <!-- Меню с кнопками -->
-    <WidjetsMenu @addText="addText"></WidjetsMenu>
+    <el-container>
+      <el-aside :width="menuWidth">
+        <div class="menu">
+          <WidgetsMenu @add-block="addBlock"></WidgetsMenu>
+        </div>
+      </el-aside>
     <!-- Общее поле, где можно перемещать элементы -->
-    <div
-      class="container"
-    >
-    <!-- Блок с текстом -->
-    <!-- id, xCoord, yCoord это пропсы из BlockText.vue -->
-      <div v-if="items.length > 0">
-        <BlockText
-          v-for="item in items"
-          :key="item.id"
-          :id="item.id"
-          :selected-object-id="selectedObjectId"
-          @object-selection="objectSelection"
-          @delete-element="deleteElement"
-        ></BlockText>
-      </div>
-    </div>
-    <div class="objectMenu" id="optionsMenu">
-      
-    </div>
+      <el-main>
+        <div
+          class="container"
+        >
+        <!-- Блок с текстом -->
+          <component
+            v-for="item in items"
+            :key="item.id"
+            :is="item.name"
+            :id="item.id"
+            :selected-object-id="selectedObjectId"
+            @object-selection="objectSelection"
+            @delete-element="deleteBlock"
+          ></component>
+        </div>
+      </el-main>
+      <el-aside :width="menuWidth">
+        <div class="objectMenu" id="optionsMenu">
+        </div>
+      </el-aside>
+    </el-container>
   </div>
 </template>
 
 <script>
-
-import BlockText from '@/components/BlockText.vue'
-import WidjetsMenu from '@/components/WidjetsMenu.vue'
+import { mapGetters } from 'vuex'
+import BlockText from '@/components/Blocks/BlockText.vue'
+import BlockFigure from '@/components/Blocks/BlockFigure.vue'
+import BlockBackground from '@/components/Blocks/BlockBackground.vue'
+import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
 
 
 export default {
   name: 'App',
   components: {
     BlockText,
-    WidjetsMenu,
+    WidgetsMenu,
+    BlockFigure,
+    BlockBackground,
   },
   data (){
     return{
-      // Массив объектов, где хранятся данные об элементе
       items: [],
-      selectedObjectId : 0,
+      selectedObjectId: 0,
+      backgroundId: 0,
     }
   },
+  computed: {
+    ...mapGetters(['getMenuData', 'getMenuWidth']),
+    windowStyle () {
+      return {
+        minHeight: window.innerHeight + 'px'
+      }
+    },
+    menuWidth () {
+      return this.getMenuWidth + '%'
+    }
+  },
+
+  mounted () {
+    for (let widget of this.getMenuData) {
+      if (widget.single) {
+        this.addBlock(widget)
+      }
+    }
+  },
+
   methods: {
-    addText () { // Добавление текстового блока
-      this.items.push({ // Запись нового элемента в массив объектов
+    addBlock (block) {
+      if (block.single && this.items.find((el) => 'Block' + block.name == el.name)) {
+        this.selectedObjectId = this.items.find((el) => block.name == el.name).id
+        return
+      }
+      this.items.push({
         id: this.items.length,
-        name: null
+        name: 'Block' + block.name
       })
+      if (block.name == 'Background') {
+        this.backgroundId = this.items.length - 1
+      }
     },
     objectSelection (id) {
       this.selectedObjectId = id
     },
-    deleteElement (id) {
+    deleteBlock (id) {
       this.items.splice(id, 1)
+      this.selectedObjectId = this.backgroundId
     }
   },
 }
@@ -66,16 +108,26 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   margin: 0;
 }
 
-.container{
-  background-color: #FFFFFF;
-  height:800px;
-  width: 72%;
+* {
+  margin: 0;
+  padding: 0;
 }
+
+.container {
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.el-main {
+  padding: 0 !important;
+}
+
 .all{
   display: flex;
   justify-content: space-between;
@@ -88,6 +140,14 @@ body{
 
 .objectMenu{
   background-color: #1C2A33;
-  width: 18%;
+  width: 100%;
+  height: 100%;
+}
+
+.menu{
+  background-color: #1C2A33;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
