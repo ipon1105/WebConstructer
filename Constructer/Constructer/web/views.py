@@ -1,3 +1,5 @@
+from django.contrib import messages
+
 from .serializers import WidgetSerializer, WidgetPropertySerializer, ProjectSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -27,14 +29,32 @@ def getProjectsById(id):
 
 
 # TODO: Удаление проектов
+def delete(request, id):
+    getProjectsById(request.user.id).filter(id=id).delete()
+    return redirect('home')
+    pass
+
 
 # TODO: Изменение проектов
+def edit(request, id):
+
+
+    context = {
+        'title': 'Домашняя страница',
+        'projects': getProjectsById(request.user.id),
+        'form': NewProjectForm
+    }
+    return render(request, 'web/home.html', context)
+    pass
 
 # TODO: Перенаправлять на новую страницу
 
 def home(request):
     if request.user.id == None:
         return redirect('welcome')
+
+    if request.method == 'GET':
+        post = request.GET
 
     context = {
         'title': 'Домашняя страница',
@@ -91,16 +111,19 @@ def welcome_register(request):
 
 
 def welcome_login(request):
-    # TODO: Разобраться с корректностью вводимых данных
 
     form = AuthenticationForm(request)
     if request.POST:
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
+
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
             login(request, user)
             return redirect('home')
+        else:
+            messages.error(request, 'Username or password is incorrect')
         pass
 
     context = {

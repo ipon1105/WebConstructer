@@ -27,5 +27,7 @@ urlpatterns = urlpatterns + [
     path('constructer', views.constructer, name="constructer"),
     path('welcome/register', views.welcome_register, name="welcome_register"),
     path('welcome/login', views.welcome_login, name="welcome_login"),
-    path('logout', views.my_logout, name="logout")
+    path('logout', views.my_logout, name="logout"),
+    path('home/del/<int:id>', views.delete),
+    path('home/edit/<int:id>', views.delete)
 ]
