@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BlockMovable from '@/components/Movable/BlockMovable.vue'
 
 export default {
@@ -23,20 +24,23 @@ export default {
     data: () => ({
         value: 'Sample',
         styles: {
-            default: () => ({})
+            'color': '',
+            'background-color': '',
+            'font-size': '',
+            'font-family': '',
+            'border-radius': '',
+            'z-index': '',
+            'text-align': ''
         },
         isSelected: false,
     }),
+    computed: mapGetters(['getBlockMenuDataById']),
     methods :{
-        changeStyles(data){
-            console.log('blockText: ', data)
-            this.styles.color = data.color
-            this.styles.backgroundColor = data.backgroundColor
-            this.styles.fontSize = data.fontSize
-            this.styles.fontFamily = data.fontFamily
-            this.styles.borderRadius = data.borderRadius
-            this.styles.zIndex = data.zIndex
-            this.styles.textAlign = data.textAlign
+        changeStyles(value, field, measure){
+            if (typeof this.styles[field] !== 'undefined') {
+                this.styles[field] = value + (measure && measure != 'none' ? measure : '')
+            }
+            console.log(this.styles)
         },
         onFocus () {
             this.isSelected = true

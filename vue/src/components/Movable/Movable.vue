@@ -4,7 +4,7 @@
         'block': true,
         'block-selected': isElSelected || isDrag,
     }" 
-    :style="[movableStyles, transform]"
+    :style="styleDataFormatted"
     tabindex="0"
     @mousedown="dragMouseDown"
     @mousemove="dragMouseMove"
@@ -46,28 +46,15 @@ export default{
         id: {
             type: Number,
         },
-        pos: {
-            default: () => ({
-                x: 250,
-                y: 250,
-                rotation: 0,
-            })
-        },
-        styles: {
-            default: () => ({
-                fontSize: '24px',
-                color: 'black',
-            })
-        },
-        size: {
-            default: () => ({
-                width: 200,
-                height: 100,
-            })
+        styleData: {
+            default: () => ({})
         },
         selected: {
             type: Boolean
         },
+        parentId: {
+            type: Number
+        }
     },
     data: () => ({
         sizeChangePointers: [],
@@ -84,6 +71,7 @@ export default{
             'sw',
             'w'
         ],
+        styles: {},
         isElSelected: false,
         innerPos: {},
         innerSize: {
@@ -105,6 +93,7 @@ export default{
         curDir: '',
     }),
     mounted () {
+        this.styles = this.styleData
         document.documentElement.addEventListener('mouseup', this.dragMouseUp, true)
         document.documentElement.addEventListener('mouseup', this.sizeChangeMouseUp, true)
         document.documentElement.addEventListener('mouseup', this.rotateMouseUp, true)
@@ -133,26 +122,19 @@ export default{
         }
     },
     computed: {
-        movableStyles () {
-            return Object.assign(this.styles, this.styleSize, {position: 'absolute'})
-        },
-        styleSize () {
-            return {
-                width: this.innerSize.width + 'px',
-                height: this.innerSize.height + 'px',
+        styleDataFormatted () {
+            const formattedStyleData = {
+                position: 'absolute'
             }
-        },
-        transform () {
-            return {
-                top: (this.innerPos.y + 'px'),
-                left: 'calc(' + this.getMenuWidth + '% + ' + ((this.innerPos.x > 0 ? this.innerPos.x : 0) + 'px'),
-                transform: 'rotate(' + this.innerPos.rotation + 'deg)',
+            for (let field of this.getBlockMenuDataById[this.parentId]) {
+                formattedStyleData[field.field] = (field.values ? field.values[this.styles[field.field]] : ('' + this.styles[field.field] + (field.measure && field.measure != 'none' ? field.measure : '')))
             }
+            return formattedStyleData
         },
         gridSize () {
             return this.$store.getters.getGridSize
         },
-        ...mapGetters(['getMenuWidth']),
+        ...mapGetters(['getMenuWidth', 'getBlockMenuDataById']),
 
     },
     methods: {
@@ -271,15 +253,20 @@ export default{
     },
 
     watch: {
-        pos: {
+        styleData: {
             handler (newValue) {
-                this.innerPos = newValue
+                this.styles = newValue
             },
             deep: true
         },
-        size: {
+        styles: {
             handler (newValue) {
-                this.innerSize = newValue
+                newValue
+                // this.$emit('changeObject', newValue)
+                //this.innerSize.width = newValue.width
+                //this.innerSize.height = newValue.height
+                //this.innerPos.x = newValue.x
+                //this.innerPos.y = newValue.y
             },
             deep: true
         },

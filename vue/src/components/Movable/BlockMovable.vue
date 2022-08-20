@@ -2,10 +2,10 @@
     <div>
         <Movable 
             :id="id"
-            :size="size"
-            :styles="styles"
-            :pos="pos"
+            :parent-id="parentId"
             :selected="isSelected"
+            :style-data="styleData"
+            @changeObject="handleBlockChange"
             @object-selected="objectSelection"
             @deleteElement="deleteElement"
         >
@@ -15,13 +15,10 @@
             <Teleport to="#optionsMenu">
                 {{ selectedObjectId }}
                 <BlockMenu
-                    :size="size"
-                    :styles="styles"
-                    :pos="pos"
+                    :parent-id="parentId"
+                    :style-data="styleData"
                     @deleteElement="deleteElement"
-                    @changeSize="changeSize"
-                    @changeStyle="changeStyle"
-                    @changePos="changePos"
+                    @changeObject="handleBlockChange"
                 ></BlockMenu>
             </Teleport>
         </div>
@@ -29,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Movable from '@/components/Movable/Movable.vue'
 import BlockMenu from '@/components/Movable/BlockMenu.vue'
 
@@ -46,51 +44,34 @@ export default {
         },
         innerSelection: {
             type: Boolean
-        }
+        },
+        parentId: {
+            type: Number
+        },
     },
+    computed: mapGetters (['getBlockMenuDataById']),
 
     data: () => ({
-        size: {
-            width: 100,
-            height: 100,
-        },
-        styles: {
-            fontSize: '13px',
-            color: 'black',
-            backgroundColor: 'white',
-            fontFamily: '',
-            textAlign: 'left',
-            borderRadius: '0%',
-            zIndex: 0,
-            border: '2px solid #888;',
-        },
-        pos: {
-            x: 200,
-            y: 200,
-            rotation: 0
-        },
+        styleData: {},
         isSelected: false,
     }),
 
-    mounted () {
-        this.$emit('changeStyles', this.styles)
-        this.$emit('changeSize', this.size)
+    created () {
+        if (!this.getBlockMenuDataById[this.parentId]) {
+            return
+        }
+        for (let field of this.getBlockMenuDataById[this.parentId]) {
+            this.styleData[field.field] = field.defaultValue
+        }
     },
 
     methods: {
         objectSelection () {
             this.$emit('objectSelection', this.id);
         },
-        changeStyle (data) {
-            this.styles[Object.keys(data)[0]] = data[Object.keys(data)[0]]
-            this.$emit('changeStyles', this.styles)
-        },
-        changeSize (data) {
-            this.size[Object.keys(data)[0]] = data[Object.keys(data)[0]]
-            this.$emit('changeSize', this.size)
-        },
-        changePos (data) {
-            this.pos[Object.keys(data)[0]] = data[Object.keys(data)[0]]
+        handleBlockChange (value, field) {
+            this.styleData[field] = value
+            this.$emit('changeStyles', value, field, this.getBlockMenuDataById[this.parentId].find((el) => el.field == field).measure)
         },
         deleteElement () {
             this.$emit('deleteElement', this.id)

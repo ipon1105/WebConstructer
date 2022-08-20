@@ -21,6 +21,7 @@
             :key="item.id"
             :is="item.name"
             :id="item.id"
+            :parent-id="item.parentBlockId"
             :selected-object-id="selectedObjectId"
             @object-selection="objectSelection"
             @delete-element="deleteBlock"
@@ -93,7 +94,8 @@ export default {
       }
       this.items.push({
         id: this.items.length,
-        name: 'Block' + block.name
+        name: 'Block' + block.name,
+        parentBlockId: block.id,
       })
       if (block.name == 'Background') {
         this.backgroundId = this.items.length - 1
