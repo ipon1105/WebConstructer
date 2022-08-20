@@ -1,11 +1,6 @@
 <template>
-<BlockMovable contenteditable @change-size="changeSize">
-  <el-form
-  :model="form" 
-  class="obj-fit"
-  :height="formattedHeight"
-
-  >
+<BlockMovable contenteditable>
+  <el-form :model="form" class="obj-fit" contenteditable>
     <el-form-item label="Activity name">
       <el-input v-model="form.name" />
     </el-form-item>
@@ -81,38 +76,15 @@ export default
         type: [],
         resource: '',
         desc: '',
-      },
-      height: 450,
-      defaultHeight: 450,  
+      }  
     }
   },
-  methods:
-  {
-    changeSize(data) {
-    this.height = data.height ?? this.defaultHeight
-    }
-  },
-
-  computed: {
-    formattedHeight () {
-      if(this.height > 450)
-      {
-        return this.height + 'px'
-      }
-      else 
-      {
-        return 450 + 'px'
-      }
-    }
-  }
 }
 
 
 </script>
 
 <style scoped>
-.obj-fit { object-fit: fill;
-min-height: 450px;
-min-width: 450px;}
+.obj-fit { object-fit: fill; }
 
 </style>
