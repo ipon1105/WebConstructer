@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 
-from .forms import UserCreationForm
+from .forms import UserCreationForm, NewProjectForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
@@ -25,7 +25,20 @@ def home_new(request):
     # переменная projects - хранит массив всех проектов пользователя
 
     # TODO: Сделать добавление элементов в Базу данных
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST)
 
+        data = {
+            "div": "div"
+        }
+        user_id = request.id
+
+        form.Meta.model.data = data
+        form.Meta.model.user_id = user_id
+
+        if form.is_valid():
+            form.save()
+        pass
     # ENDTODO:
 
     projects = Project.objects.all()
