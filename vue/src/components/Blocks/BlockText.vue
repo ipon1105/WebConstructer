@@ -9,7 +9,6 @@
             @focus="onFocus"
             @blur="onBlur"
         >
-
         </textarea>
     </BlockMovable>
 </template>
@@ -30,10 +29,14 @@ export default {
     }),
     methods :{
         changeStyles(data){
+            console.log('blockText: ', data)
             this.styles.color = data.color
             this.styles.backgroundColor = data.backgroundColor
             this.styles.fontSize = data.fontSize
             this.styles.fontFamily = data.fontFamily
+            this.styles.borderRadius = data.borderRadius
+            this.styles.zIndex = data.zIndex
+            this.styles.textAlign = data.textAlign
         },
         onFocus () {
             this.isSelected = true
@@ -59,5 +62,6 @@ export default {
         z-index: 2;
         padding: 0;
         overflow: hidden;
+        /* border: 1px solid rgba(255, 255, 255, 0); */
     }
 </style>

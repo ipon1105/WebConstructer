@@ -7,11 +7,26 @@
                         @change="changeFontSize"/>
         </div>
         <div>
+            <p>Скругление углов: {{borderRadius}}</p>
+
+            <el-slider class="slider" v-model="borderRadius"
+                        @change="changeBorderRadius"/>
+        </div>
+        <div>
             <p>Стиль шрифта</p>
             <el-cascader v-model="valueCascader" 
                         :options="optionsCascader" 
                         @change="changeFontFamily" 
                         style="width: 70%; margin-bottom: 10%;" />
+        </div>
+
+        <div class="alignMenu">
+            <p>Выравнивание текста</p>
+            <div style="margin-top: 10%;">
+                <img class="iconAlign" src="@/assets/image/iconAlignLeft.png" @click="changeAlignText('left')">
+                <img class="iconAlign" src="@/assets/image/iconAlignCenter.png" @click="changeAlignText('center')">
+                <img class="iconAlign" src="@/assets/image/iconAlignRight.png" @click="changeAlignText('right')">
+            </div>
         </div>
 
         <div>
@@ -44,9 +59,18 @@
                     <p>Y : </p>
                     <input type="input" v-model="y"/>
                 </div>
+                <div>
+                    <p>Слой : </p>
+                    <input type="input" v-model="zIndex"/>
+                </div>
             </div>
         </div>
         
+        <div>
+            <p>Рамка </p>
+            <el-checkbox v-model="isBorder"  size="large" @change="changeIsBorder" />
+        </div>
+
         <button @click="deleteElement">Удалить</button>
 
         
@@ -67,12 +91,17 @@
             },
         },
         data: () => ({
+            isBorder: true,
+            border: '2px solid #888',
+            borderRadius: 0,
             width: 0,
             height: 0,
-            fontSize: 12,
-            fontFamily: 'Impact',
+            fontSize: 13,
+            fontFamily: '',
+            textAlign: 'left',
             x: 0,
             y: 0,
+            zIndex: 0,
             colorPic: 'rgba(0, 0, 0, 1)',
             backgroudColorPic: 'rgba(255, 255, 255, 1)',
             predefineColors: [
@@ -153,6 +182,27 @@
                     fontFamily: newValue
                 })                
             },
+            changeAlignText(newValue){
+                this.changeStyle({
+                    textAlign: newValue
+                })
+            },
+            changeBorderRadius(newValue){
+                this.changeStyle({
+                    borderRadius: newValue + '%'
+                })                
+            },
+            changeIsBorder(newValue){
+                if(newValue){
+                    this.changeStyle({
+                        border: '2px solid #888'
+                    })
+                } else {
+                    this.changeStyle({
+                        border: 'none'
+                    })
+                }
+            },
             processWidth () {
                 
             }
@@ -178,10 +228,18 @@
                     y: newValue
                 })
             },
+            zIndex(newValue){
+                this.changeStyle({
+                    zIndex: parseInt(newValue)
+                })
+            },
             fontSize (newValue) {
                 this.changeStyle({
                     fontSize: newValue
                 })
+            },
+            changeIsBorder(){
+
             },
             pos: {
                 handler (newValue) {
@@ -247,8 +305,11 @@
     }
 
    .slider{
-        width: 70%;
-        
+        width: 70%;    
+   }
+
+   .iconAlign{
+        margin-right: 5%;
    }
 
 </style>
