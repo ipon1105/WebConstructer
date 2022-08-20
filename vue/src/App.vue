@@ -40,6 +40,7 @@ import { mapGetters } from 'vuex'
 import BlockText from '@/components/Blocks/BlockText.vue'
 import BlockFigure from '@/components/Blocks/BlockFigure.vue'
 import BlockBackground from '@/components/Blocks/BlockBackground.vue'
+import BlockImage from '@/components/Blocks/BlockImage.vue'
 import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
 
 
@@ -50,6 +51,7 @@ export default {
     WidgetsMenu,
     BlockFigure,
     BlockBackground,
+    BlockImage,
   },
   data (){
     return{

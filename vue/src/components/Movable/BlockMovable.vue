@@ -1,29 +1,29 @@
 <template>
-<div>
-    <Movable 
-        :id="id"
-        :size="size"
-        :styles="styles"
-        :pos="pos"
-        @object-selected="objectSelection"
-        @deleteElement="deleteElement"
-    >
-        <slot></slot>
-    </Movable>
-    <div v-if="id == selectedObjectId">
-        <Teleport to="#optionsMenu">
-            <BlockMenu
-                :size="size"
-                :styles="styles"
-                :pos="pos"
-                @deleteElement="deleteElement"
-                @changeSize="changeSize"
-                @changeStyle="changeStyle"
-                @changePos="changePos"
-            ></BlockMenu>
-        </Teleport>
+    <div>
+        <Movable 
+            :id="id"
+            :size="size"
+            :styles="styles"
+            :pos="pos"
+            @object-selected="objectSelection"
+            @deleteElement="deleteElement"
+        >
+            <slot></slot>
+        </Movable>
+        <div v-if="id == selectedObjectId">
+            <Teleport to="#optionsMenu">
+                <BlockMenu
+                    :size="size"
+                    :styles="styles"
+                    :pos="pos"
+                    @deleteElement="deleteElement"
+                    @changeSize="changeSize"
+                    @changeStyle="changeStyle"
+                    @changePos="changePos"
+                ></BlockMenu>
+            </Teleport>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -52,10 +52,12 @@ export default {
         styles: {
             fontSize: '12px',
             color: 'black',
+            backgroundColor: 'white',
+            fontFamily: 'Impact',
         },
         pos: {
-            x: 100,
-            y: 100,
+            x: 200,
+            y: 200,
             rotation: 0
         },
         isSelected: false,
@@ -67,6 +69,7 @@ export default {
         },
         changeStyle (data) {
             this.styles[Object.keys(data)[0]] = data[Object.keys(data)[0]]
+            this.$emit('changeStyles', this.styles)
         },
         changeSize (data) {
             this.size[Object.keys(data)[0]] = data[Object.keys(data)[0]]

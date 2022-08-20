@@ -1,11 +1,11 @@
 <template>
 	<BlockMovable>
-        <img :src="require('@/assets/image/billy.jpg')" alt="" draggable="false" >
+        <img :src="require('@/assets/image/iconSlider.png')" alt="" draggable="false" >
     </BlockMovable>
 </template>
 
 <script>
-import BlockMovable from '@/components/MovableBlock.vue'
+import BlockMovable from '@/components/Movable/BlockMovable.vue'
 
 export default
 {
