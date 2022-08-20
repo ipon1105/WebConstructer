@@ -71,13 +71,14 @@
             <el-checkbox v-model="isBorder"  size="large" @change="changeIsBorder" />
         </div>
 
-        <button @click="deleteElement">Удалить</button>
+        <button class="buttonDelete" @click="deleteElement">Удалить</button>
 
         
     </div>
 </template>
 
 <script>
+   
     export default {
         props: {
             size: {
@@ -238,9 +239,6 @@
                     fontSize: newValue
                 })
             },
-            changeIsBorder(){
-
-            },
             pos: {
                 handler (newValue) {
                     this.x = newValue.x
@@ -289,7 +287,7 @@
         display: inline-block;
     }
 
-    button{
+    .buttonDelete{
         margin-top: 10%;
         background-color: #177ab3;
         border: 2px solid #FFFFFF ;
@@ -299,7 +297,7 @@
         font-family:Verdana, Geneva, Tahoma, sans-serif;
     }
 
-    button:hover{
+    .buttonDelete:hover{
         background-color: #2e80b0;
         color: #185578;
     }
@@ -311,5 +309,6 @@
    .iconAlign{
         margin-right: 5%;
    }
+   
 
 </style>
