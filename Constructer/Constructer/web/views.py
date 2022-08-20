@@ -37,8 +37,6 @@ def delete(request, id):
 
 # TODO: Изменение проектов
 def edit(request, id):
-
-
     context = {
         'title': 'Домашняя страница',
         'projects': getProjectsById(request.user.id),
@@ -46,6 +44,7 @@ def edit(request, id):
     }
     return render(request, 'web/home.html', context)
     pass
+
 
 # TODO: Перенаправлять на новую страницу
 
@@ -76,14 +75,7 @@ def home_new(request):
         )
         col.save()
         pass
-    form = NewProjectForm()
-
-    context = {
-        'title': 'Домашняя страница',
-        'projects': getProjectsById(request.user.id),
-        'form': form
-    }
-    return render(request, 'web/home.html', context)
+    return redirect('home')
 
 
 def my_logout(request):
@@ -111,7 +103,6 @@ def welcome_register(request):
 
 
 def welcome_login(request):
-
     form = AuthenticationForm(request)
     if request.POST:
 
