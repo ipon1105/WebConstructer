@@ -6,13 +6,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
 
+from .models import Project
+
 
 def home(request):
     # переменная projects - хранит массив всех проектов пользователя
 
+    projects = Project.objects.all()
+    print(projects)
+
     context = {
         'title': 'Домашняя страница',
-        'projects': []
+        'projects': projects
     }
     return render(request, 'web/home.html', context)
 
