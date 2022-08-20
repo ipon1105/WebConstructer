@@ -3,18 +3,21 @@ from django.db.models import JSONField
 from django.db import models
 
 
-class User(AbstractUser):
-    pass
-
-
 class CustomJsonField(models.JSONField):
+    """Собственный парсер в JSON"""
     def from_db_value(self, value, expression, connection):
         if isinstance(value, dict):
             return value
         return super().from_db_value(value, expression, connection)
 
 
+class User(AbstractUser):
+    """Пользователь"""
+    pass
+
+
 class Project(models.Model):
+    """Проект"""
     user_id = models.BigIntegerField(primary_key=False)
     title = models.CharField(max_length=25)
     data = CustomJsonField(default={'div':'div'})
@@ -22,11 +25,11 @@ class Project(models.Model):
     def __str__(self):
         return self.user_id
         pass
-
     pass
 
 
 class Widget(models.Model):
+    """Виджет"""
     title = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
     single = models.BooleanField()
@@ -38,7 +41,8 @@ class Widget(models.Model):
 
 
 class WidgetProperty(models.Model):
-    parrentId = models.BigIntegerField()
+    """Свойства Виджета"""
+    parentId = models.BigIntegerField()
     title = models.CharField(max_length=50)
     field = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
