@@ -15,7 +15,7 @@
             {% for el in projects %}
                 <div class="alert alert-warning mt-2">
                     <h3>{{el.title}}</h3>
-                    <p>{{el.data}}<br>{{el.user_id}}</p>
+                    <p>{{el.data}} | {{el.user_id}}</p>
                 </div>
             {% endfor %}
             {% else %}

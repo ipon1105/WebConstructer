@@ -24,9 +24,15 @@ def home(request):
 def home_new(request):
     # переменная projects - хранит массив всех проектов пользователя
 
+    # TODO: Сделать добавление элементов в Базу данных
+
+    # ENDTODO:
+
+    projects = Project.objects.all()
+
     context = {
         'title': 'Домашняя страница',
-        'projects': []
+        'projects': projects
     }
     return render(request, 'web/home.html', context)
 
