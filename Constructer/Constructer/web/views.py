@@ -28,7 +28,6 @@ def getProjectsById(id):
     return Project.objects.filter(user_id=id)
 
 
-# TODO: Удаление проектов
 def delete(request, id):
     getProjectsById(request.user.id).filter(id=id).delete()
     return redirect('home')
@@ -47,6 +46,10 @@ def edit(request, id):
 
 
 # TODO: Перенаправлять на новую страницу
+def ceate(request):
+
+    pass
+
 
 def home(request):
     if request.user.id == None:

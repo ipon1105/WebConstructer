@@ -29,5 +29,6 @@ urlpatterns = urlpatterns + [
     path('welcome/login', views.welcome_login, name="welcome_login"),
     path('logout', views.my_logout, name="logout"),
     path('home/del/<int:id>', views.delete),
+
     path('home/edit/<int:id>', views.edit)
 ]
