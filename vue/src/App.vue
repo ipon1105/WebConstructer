@@ -4,6 +4,7 @@
     :style="windowStyle"
   > 
     <!-- Меню с кнопками -->
+
     <el-container>
       <el-aside :width="menuWidth">
         <div class="menu">
@@ -32,10 +33,41 @@
         </div>
       </el-aside>
     </el-container>
+    <WidjetsMenu @addText="addText" @addPhoto="addPhoto"></WidjetsMenu>
+    <!-- Общее поле, где можно перемещать элементы -->
+    <div
+      class="container"
+    >
+    <!-- Блок с текстом -->
+    <!-- id, xCoord, yCoord это пропсы из TextBlock.vue -->
+      <div v-if="items.length > 0">
+        <TextBlock
+          v-for="item in items"
+          :key="item.id"
+          :id="item.id"
+          :selected-object-id="selectedObjectId"
+          @object-selection="objectSelection"
+          @delete-element="deleteElement"
+        ></TextBlock>
+        <BlockImage
+          v-for="item in items"
+          :key="item.id"
+          :id="item.id"
+          :selected-object-id="selectedObjectId"
+          @object-selection="objectSelection"
+          @delete-element="deleteElement"
+        ></BlockImage>
+      </div>
+    </div>
+    <div class="objectMenu" id="optionsMenu">
+      
+    </div>
+
   </div>
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex'
 import BlockText from '@/components/Blocks/BlockText.vue'
 import BlockFigure from '@/components/Blocks/BlockFigure.vue'
@@ -48,6 +80,7 @@ import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
 export default {
   name: 'App',
   components: {
+
     BlockText,
     WidgetsMenu,
     BlockFigure,
@@ -55,6 +88,7 @@ export default {
     BlockImage,
     BlockSlider,
     BlockForm,
+
   },
   data (){
     return{
@@ -96,6 +130,12 @@ export default {
       if (block.name == 'Background') {
         this.backgroundId = this.items.length - 1
       }
+    },
+    addPhoto () {
+      this.items.push({
+        id: this.items.length,
+        name: null
+      })
     },
     objectSelection (id) {
       this.selectedObjectId = id
