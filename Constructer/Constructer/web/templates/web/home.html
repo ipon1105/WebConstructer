@@ -11,21 +11,21 @@
     {% endblock %}
     {% block content %}
         <div class="container">
-            {% if projects %}
-            {% for el in projects %}
-                <div class="alert alert-warning mt-2">
-                    <h3>{{el.title}}</h3>
-                    <p>{{el.data}} | {{el.user_id}}</p>
-                </div>
-            {% endfor %}
-            {% else %}
-                <p>Нет ранее созданнных проектов</p>
-            {% endif %}
             <form action="{% url 'home_new' %}" method="POST">
                 {{form}}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-success">Новый проект</button>
             </form>
+            {% if projects %}
+            {% for el in projects %}
+                <div class="alert alert-warning mt-2">
+                    <h3>id: {{el.id}} | {{el.title}}</h3>
+                    <p> {{el.data}} </p>
+                </div>
+            {% endfor %}
+            {% else %}
+                <p>Нет ранее созданнных проектов</p>
+            {% endif %}
         </div>
     {% endblock %}
 

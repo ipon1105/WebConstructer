@@ -8,44 +8,55 @@ from django.views import View
 
 from .models import Project
 
+def getProjectsById(id):
+    return Project.objects.filter(user_id=id)
+
+
+def del_click(request, pk):
+    getProjectsById(request.user.id).filter(id=pk).delete()
+    return redirect('home')
+'''
+                    <!-- <a href="{% url del_click  {{el.id}}.pk%}"><button type="submit" class="btn btn-danger">Удалить</button></a> -->
+                    <!-- <a href="{% url edit_click {{el.id}}.pk%}"><button type="submit" class="btn btn-success">Изменить</button></a> -->
+'''
 
 def home(request):
-    # переменная projects - хранит массив всех проектов пользователя
+    if request.user.id == None:
+        return redirect('welcome')
 
-    projects = Project.objects.all()
+    print("-> HOME")
+    # переменная projects - хранит массив всех проектов пользователя
 
     context = {
         'title': 'Домашняя страница',
-        'projects': projects
+        'projects': getProjectsById(request.user.id),
+        'form': NewProjectForm
     }
     return render(request, 'web/home.html', context)
 
 
 def home_new(request):
+    if request.user.id == None:
+        return redirect('welcome')
+
+    print("-> HOME_NEW")
     # переменная projects - хранит массив всех проектов пользователя
 
     # TODO: Сделать добавление элементов в Базу данных
     if request.method == 'POST':
-        form = NewProjectForm(request.POST)
-
-        data = {
-            "div": "div"
-        }
-        user_id = request.id
-
-        form.Meta.model.data = data
-        form.Meta.model.user_id = user_id
-
-        if form.is_valid():
-            form.save()
+        col = Project(
+            user_id=request.user.id,
+            title=request.POST['title'],
+            data={"div": "div"}
+        )
+        col.save()
         pass
-    # ENDTODO:
-
-    projects = Project.objects.all()
+    form = NewProjectForm()
 
     context = {
         'title': 'Домашняя страница',
-        'projects': projects
+        'projects': getProjectsById(request.user.id),
+        'form': form
     }
     return render(request, 'web/home.html', context)
 
@@ -119,28 +130,3 @@ def welcome(request):
         'header_name': 'Здравствуйте.',
     }
     return render(request, 'web/welcome.html', context)
-
-
-class Register(View):
-    template_name = 'web/register.html'
-
-    def get(self, request):
-        context = {
-            'form': UserCreationForm()
-        }
-        return render(request, self.template_name, context)
-
-    def post(self, request):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home')
-
-        context = {
-            'form': form
-        }
-        return render(request, self.template_name, context)
