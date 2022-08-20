@@ -47,6 +47,11 @@ export default {
                 title: 'Поле ввода',
                 name: 'Input',
             },
+            {
+                id: 8,
+                title: 'Кнопка',
+                name: 'Button',
+            },
         ],
         gridSize: 20,
         menuWidth: 20

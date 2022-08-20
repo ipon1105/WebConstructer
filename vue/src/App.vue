@@ -75,7 +75,9 @@ import BlockBackground from '@/components/Blocks/BlockBackground.vue'
 import BlockImage from '@/components/Blocks/BlockImage.vue'
 import BlockSlider from '@/components/Blocks/BlockSlider.vue'
 import BlockForm from '@/components/Blocks/BlockForm.vue'
+import BlockButton from '@/components/Blocks/BlockButton.vue'
 import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
+
 
 export default {
   name: 'App',
@@ -88,7 +90,7 @@ export default {
     BlockImage,
     BlockSlider,
     BlockForm,
-
+    BlockButton,
   },
   data (){
     return{
