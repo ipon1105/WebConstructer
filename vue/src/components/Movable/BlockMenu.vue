@@ -9,7 +9,7 @@
         <div>
             <p>Скругление углов: {{borderRadius}}</p>
 
-            <el-slider class="slider" v-model="borderRadius"
+            <el-slider class="slider" v-model="borderRadius" max="50"
                         @change="changeBorderRadius"/>
         </div>
         <div>
