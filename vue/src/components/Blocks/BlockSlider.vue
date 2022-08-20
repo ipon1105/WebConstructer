@@ -1,7 +1,9 @@
 <template>
-<BlockMovable>
+<BlockMovable
+  @change-size="changeSize"
+>
 	<div class="obj-fit">
-    <el-carousel :heigth="height">
+    <el-carousel :height="formattedHeight">
       <el-carousel-item v-for="item in 5" :key="item">
         <h3>{{ item }}</h3>
       </el-carousel-item>
@@ -15,10 +17,21 @@ import BlockMovable from '@/components/Movable/BlockMovable.vue'
 
 export default {
 	components: { BlockMovable },
+  data: () => ({
+    height: 150,
+    defaultHeight: 150,
+  }),
 	methods:
 	{
-		
-	}
+		changeSize(data) {
+      this.height = data.height ?? this.defaultHeight
+    }
+	},
+  computed: {
+    formattedHeight () {
+      return this.height + 'px'
+    }
+  }
 }
 </script>
 
