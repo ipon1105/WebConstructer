@@ -50,10 +50,14 @@ export default {
             height: 100,
         },
         styles: {
-            fontSize: '12px',
+            fontSize: '13px',
             color: 'black',
             backgroundColor: 'white',
-            fontFamily: 'Impact',
+            fontFamily: '',
+            textAlign: 'left',
+            borderRadius: '0%',
+            zIndex: 0,
+            border: '2px solid #888;',
         },
         pos: {
             x: 200,
