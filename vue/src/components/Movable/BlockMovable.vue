@@ -5,6 +5,7 @@
             :size="size"
             :styles="styles"
             :pos="pos"
+            :selected="isSelected"
             @object-selected="objectSelection"
             @deleteElement="deleteElement"
         >
@@ -12,6 +13,7 @@
         </Movable>
         <div v-if="id == selectedObjectId">
             <Teleport to="#optionsMenu">
+                {{ selectedObjectId }}
                 <BlockMenu
                     :size="size"
                     :styles="styles"
@@ -41,6 +43,9 @@ export default {
         },
         selectedObjectId: {
             type: Number
+        },
+        innerSelection: {
+            type: Boolean
         }
     },
 
@@ -63,6 +68,11 @@ export default {
         isSelected: false,
     }),
 
+    mounted () {
+        this.$emit('changeStyles', this.styles)
+        this.$emit('changeSize', this.size)
+    },
+
     methods: {
         objectSelection () {
             this.$emit('objectSelection', this.id);
@@ -73,6 +83,7 @@ export default {
         },
         changeSize (data) {
             this.size[Object.keys(data)[0]] = data[Object.keys(data)[0]]
+            this.$emit('changeSize', this.size)
         },
         changePos (data) {
             this.pos[Object.keys(data)[0]] = data[Object.keys(data)[0]]
@@ -80,7 +91,18 @@ export default {
         deleteElement () {
             this.$emit('deleteElement', this.id)
         },
-    }
+    },
+
+    watch: {
+        innerSelection (newValue) {
+            this.isSelected = newValue
+        },
+        isSelected (newValue) {
+            if (newValue) {
+                this.objectSelection()
+            }
+        }
+    },
 }
 </script>
 

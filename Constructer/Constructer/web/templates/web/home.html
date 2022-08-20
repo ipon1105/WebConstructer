@@ -1,4 +1,34 @@
-<!doctype html>
+{% extends 'web/header.html' %}
+    {% block title %}
+        {{title}}
+    {% endblock %}
+    {% block header_name %}
+    {% if user %}
+        Здравствуйте, {{user}}.
+    {% else %}
+        {{header_name}}
+    {% endif %}
+    {% endblock %}
+    {% block content %}
+        <div class="container">
+            {% if projects %}
+            {% for el in projects %}
+                <div class="alert alert-warning mt-2">
+                    <h3>{{el.title}}</h3>
+                    <p>{{el.project}}</p>
+                </div>
+            {% endfor %}
+            {% else %}
+                <p>Нет ранее созданнных проектов</p>
+            {% endif %}
+            <form action="{% url 'home_new' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Новый проект</button>
+            </form>
+        </div>
+    {% endblock %}
+
+<!--<!doctype html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
@@ -22,17 +52,7 @@
             </header>
         </div>
 
-        <div class="container">
-            {% if projects %}
-            {% for el in projects %}
-                <div class="alert alert-warning mt-2">
-                    <h3>{{el.title}}</h3>
-                    <p>{{el.project}}</p>
-                </div>
-            {% endfor %}
-            {% else %}
-                <p>Нет ранее созданнных проектов</p>
-            {% endif %}
-        </div>
+
     </body>
 </html>
+-->
