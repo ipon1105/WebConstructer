@@ -1,6 +1,6 @@
 <template>
-<BlockMovable>
-  <el-form :model="form" class="obj-fit">
+<BlockMovable contenteditable>
+  <el-form :model="form" class="obj-fit" contenteditable>
     <el-form-item label="Activity name">
       <el-input v-model="form.name" />
     </el-form-item>
