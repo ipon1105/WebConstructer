@@ -2,8 +2,23 @@ from django.urls import path, include
 
 from . import views
 
+
+# myapi/urls.py
+from django.urls import include, path
+from rest_framework import routers
+from . import views
+
+router = routers.DefaultRouter()
+router.register(r'widgets', views.HeroViewSet)
+
 urlpatterns = [
-    path('', views.welcome, name="welcome"),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+
+urlpatterns = urlpatterns + [
+    #path('', views.welcome, name="welcome"),
     path('welcome', views.welcome, name="welcome"),
     path('home', views.home, name="home"),
     path('home/new', views.home_new, name="home_new"),

@@ -8,6 +8,17 @@ from django.views import View
 
 from .models import Project
 
+# views.py
+from rest_framework import viewsets
+from .serializers import HeroSerializer
+from .models import Widget
+
+
+class HeroViewSet(viewsets.ModelViewSet):
+    queryset = Widget.objects.all().order_by('title')
+    serializer_class = HeroSerializer
+
+
 def getProjectsById(id):
     return Project.objects.filter(user_id=id)
 
@@ -15,10 +26,13 @@ def getProjectsById(id):
 def del_click(request, pk):
     getProjectsById(request.user.id).filter(id=pk).delete()
     return redirect('home')
+
+
 '''
                     <!-- <a href="{% url del_click  {{el.id}}.pk%}"><button type="submit" class="btn btn-danger">Удалить</button></a> -->
                     <!-- <a href="{% url edit_click {{el.id}}.pk%}"><button type="submit" class="btn btn-success">Изменить</button></a> -->
 '''
+
 
 def home(request):
     if request.user.id == None:
@@ -66,9 +80,7 @@ def my_logout(request):
     return welcome(request)
 
 
-
 def welcome_register(request):
-
     form = UserCreationForm(request.POST)
     if form.is_valid():
         form.save()
@@ -88,10 +100,9 @@ def welcome_register(request):
 
 
 def welcome_login(request):
-
-    #TODO: Разобраться с корректностью вводимых данных
-    #myForm = AuthenticationForm(request.POST)
-    #if myForm.is_valid():
+    # TODO: Разобраться с корректностью вводимых данных
+    # myForm = AuthenticationForm(request.POST)
+    # if myForm.is_valid():
     #    return welcome(request)
 
     if request.POST:
