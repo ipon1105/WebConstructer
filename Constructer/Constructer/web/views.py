@@ -13,7 +13,6 @@ def home(request):
     # переменная projects - хранит массив всех проектов пользователя
 
     projects = Project.objects.all()
-    print(projects)
 
     context = {
         'title': 'Домашняя страница',
