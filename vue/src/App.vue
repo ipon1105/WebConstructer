@@ -42,10 +42,7 @@ import BlockFigure from '@/components/Blocks/BlockFigure.vue'
 import BlockBackground from '@/components/Blocks/BlockBackground.vue'
 import BlockImage from '@/components/Blocks/BlockImage.vue'
 import BlockSlider from '@/components/Blocks/BlockSlider.vue'
-<<<<<<< Updated upstream
-=======
 import BlockForm from '@/components/Blocks/BlockForm.vue'
->>>>>>> Stashed changes
 import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
 
 export default {
@@ -57,10 +54,7 @@ export default {
     BlockBackground,
     BlockImage,
     BlockSlider,
-<<<<<<< Updated upstream
-=======
     BlockForm,
->>>>>>> Stashed changes
   },
   data (){
     return{
