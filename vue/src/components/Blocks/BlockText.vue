@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <BlockMovable @change-styles="changeStyles">
-        <textarea :style="styles" v-model="value">
-=======
     <BlockMovable
         @change-styles="changeStyles"
         :innerSelection="isSelected"
@@ -13,8 +9,6 @@
             @focus="onFocus"
             @blur="onBlur"
         >
-
->>>>>>> 816ac6bfc1de4c860a17633d6e92ba167bda4632
         </textarea>
     </BlockMovable>
 </template>
