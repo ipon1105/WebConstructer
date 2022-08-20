@@ -25,6 +25,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 def getProjectsById(id):
     return Project.objects.filter(user_id=id)
 
+
 # TODO: Удаление проектов
 
 # TODO: Изменение проектов
@@ -34,9 +35,6 @@ def getProjectsById(id):
 def home(request):
     if request.user.id == None:
         return redirect('welcome')
-
-    print("-> HOME")
-    # переменная projects - хранит массив всех проектов пользователя
 
     context = {
         'title': 'Домашняя страница',
@@ -50,10 +48,6 @@ def home_new(request):
     if request.user.id == None:
         return redirect('welcome')
 
-    print("-> HOME_NEW")
-    # переменная projects - хранит массив всех проектов пользователя
-
-    # TODO: Сделать добавление элементов в Базу данных
     if request.method == 'POST':
         col = Project(
             user_id=request.user.id,
@@ -98,22 +92,21 @@ def welcome_register(request):
 
 def welcome_login(request):
     # TODO: Разобраться с корректностью вводимых данных
-    # myForm = AuthenticationForm(request.POST)
-    # if myForm.is_valid():
-    #    return welcome(request)
 
+    form = AuthenticationForm(request)
     if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        login(request, user)
-        return redirect('home')
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect('home')
         pass
 
     context = {
         'title': 'Welcome',
         'header_name': 'Здравствуйте.',
-        'form_log': AuthenticationForm()
+        'form_log': form
     }
 
     return render(request, 'web/welcome.html', context)
@@ -121,7 +114,7 @@ def welcome_login(request):
 
 
 def constructer(request):
-    if request.user.id == None:
+    if request.user.id is None:
         return redirect('welcome')
 
     context = {
