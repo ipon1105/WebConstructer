@@ -1,27 +1,25 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
-
-from .forms import UserCreationForm, NewProjectForm
+from .serializers import WidgetSerializer, WidgetPropertySerializer, ProjectSerializer
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .models import Project, Widget, WidgetProperty
+from .forms import UserCreationForm, NewProjectForm
 from django.shortcuts import render, redirect
-from django.views import View
-
-from .models import Project
-
-# views.py
 from rest_framework import viewsets
-from .serializers import HeroSerializer
-from .models import Widget
 
 
-class HeroViewSet(viewsets.ModelViewSet):
+class WidgetViewSet(viewsets.ModelViewSet):
     queryset = Widget.objects.all().order_by('id')
-    serializer_class = HeroSerializer
-
-# TODO: Добавить обработчик сериализированных данных для WidgetProperty
+    serializer_class = WidgetSerializer
 
 
-# TODO: Добавить обработчик сериализированных данных для Project
+class WidgetPropertyViewSet(viewsets.ModelViewSet):
+    queryset = WidgetProperty.objects.all().order_by('id')
+    serializer_class = WidgetPropertySerializer
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all().order_by('id')
+    serializer_class = ProjectSerializer
 
 
 def getProjectsById(id):

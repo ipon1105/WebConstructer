@@ -9,16 +9,18 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'widgets', views.HeroViewSet)
+router.register(r'widgets', views.WidgetViewSet)
+router.register(r'widgets_property', views.WidgetPropertyViewSet)
+router.register(r'project', views.ProjectViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 
 urlpatterns = urlpatterns + [
-    #path('', views.welcome, name="welcome"),
+    path('', views.welcome, name="welcome"),
     path('welcome', views.welcome, name="welcome"),
     path('home', views.home, name="home"),
     path('home/new', views.home_new, name="home_new"),

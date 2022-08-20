@@ -1,18 +1,29 @@
-# serializers.py
+from .models import Widget, Project, WidgetProperty
 from rest_framework import serializers
 
-from .models import Widget
+
+class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    """Сериализация проекта"""
+    class Meta:
+        model = Project
+        fields = ('id', 'user_id', 'title', 'data')
+        pass
+    pass
 
 
-class HeroSerializer(serializers.HyperlinkedModelSerializer):
+class WidgetSerializer(serializers.HyperlinkedModelSerializer):
+    """Сериализация виджета"""
     class Meta:
         model = Widget
         fields = ('id', 'title', 'name', 'single')
         pass
-
     pass
 
-# TODO: Создать сериализация для таблицы WidgetProperty
 
-
-# TODO: Создать сериализация для таблицы Project
+class WidgetPropertySerializer(serializers.HyperlinkedModelSerializer):
+    """Сериализация свойств виджета"""
+    class Meta:
+        model = WidgetProperty
+        fields = ('id', 'parentId', 'title', 'field', 'type', 'measure', 'defaultValue', 'values', 'additionalData')
+        pass
+    pass
