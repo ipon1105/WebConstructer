@@ -1,11 +1,14 @@
 <template>
+  
 <BlockMovable
   @change-size="changeSize"
 >
+  <input type="file" @change="onFileChange($event)" class="imgFill" />
+  <button style="margin-top:10%" class="buttonDelete" @click="imageDelete">Удалить</button>
 	<div class="obj-fit">
     <el-carousel :height="formattedHeight">
-      <el-carousel-item v-for="item in 5" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item v-for="item in images" :key="item">
+        <img :src="item" class="image">   
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -20,11 +23,19 @@ export default {
   data: () => ({
     height: 150,
     defaultHeight: 150,
+    images: [],
   }),
 	methods:
 	{
 		changeSize(data) {
       this.height = data.height ?? this.defaultHeight
+    },
+    onFileChange(event) {
+      this.images.push(URL.createObjectURL(event.target.files[0]))
+      // this.isInput = false
+    },
+    imageDelete(){
+      this.images.pop()
     }
 	},
   computed: {
@@ -37,7 +48,7 @@ export default {
 
 <style scoped>
 
-.obj-fit { object-fit: fill; }
+.obj-fit { object-fit: fill; height: 80%; margin-top: 20%;}
 
 .el-carousel__item h3 {
   color: #475669;
@@ -51,6 +62,20 @@ export default {
 }
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+
+.imgFill
+{
+    position: absolute;
+    width: 50%;
+    height: 10%;
+    object-fit: fill;
+}
+.image
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 </style>
