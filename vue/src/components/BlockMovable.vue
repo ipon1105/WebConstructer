@@ -52,6 +52,8 @@ export default {
         styles: {
             fontSize: '12px',
             color: 'black',
+            backgroundColor: 'white',
+            fontFamily: 'Impact',
         },
         pos: {
             x: 200,
@@ -67,6 +69,7 @@ export default {
         },
         changeStyle (data) {
             this.styles[Object.keys(data)[0]] = data[Object.keys(data)[0]]
+            this.$emit('changeStyles', this.styles)
         },
         changeSize (data) {
             this.size[Object.keys(data)[0]] = data[Object.keys(data)[0]]

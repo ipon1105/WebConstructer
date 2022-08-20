@@ -285,7 +285,7 @@ export default{
     position: absolute;
     border-radius: 50%;
     border: 1px solid #444;
-    z-index: 2;
+    z-index: 4;
     margin: 0;
     padding: 0;
 }

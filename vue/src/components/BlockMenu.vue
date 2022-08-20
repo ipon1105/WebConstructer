@@ -2,20 +2,22 @@
     <div class="widjetsMenu">
         <p>Размер шрифта: {{fontSize}}</p>
 
-        <input type="range" min="1" max="100"
-                v-model="fontSize"
-                @change="changeFontSize($event)"/>
+        <el-slider class="slider" v-model="fontSize"
+                    @change="changeFontSize"/>
+        <!-- <br> -->
+        <p>Стиль шрифта</p>
+        <el-cascader v-model="valueCascader" 
+                    :options="optionsCascader" 
+                    @change="changeFontFamily" 
+                    style="width: 70%; margin-bottom: 10%;" />
 
-        <div class="palitra">
-            <div 
-                v-for="color in colorBase"
-                @click="changeColorText(color)" 
-                :key="color"
-                class="palitraElement"
-                :id="color"
-                :style="{ 'background-color': color}">
-            </div>
-        </div>
+        <p style="margin-right: 5%;">Цвет текста :</p>
+        <el-color-picker v-model="colorPic" show-alpha :predefine="predefineColors" 
+                            @active-change="(changeColorText)"/>
+
+        <p style="margin-right: 5%;">Цвет фона :</p>
+        <el-color-picker v-model="backgroudColorPic" show-alpha :predefine="predefineColors" 
+                            @active-change="(changeColorBackground)"/>
 
         <div>
             <div>
@@ -61,17 +63,62 @@
             width: 0,
             height: 0,
             fontSize: 12,
+            fontFamily: 'Impact',
             x: 0,
             y: 0,
-            colorBase: ['#FFFFFF', '#000000', '#808080', '#C0C0C0', '#FF00FF', 
-                            '#800080', '#000080', '#FF0000', '#FFFF00', '#808000',
-                            '#00FF00', '#008000', '#0000FF', '#FF4500', '#8B0000'],
+            colorPic: 'rgba(0, 0, 0, 1)',
+            backgroudColorPic: 'rgba(255, 255, 255, 1)',
+            predefineColors: [
+            '#ff4500',
+            '#ff8c00',
+            '#ffd700',
+            '#90ee90',
+            '#00ced1',
+            '#1e90ff',
+            '#c71585',
+            'rgba(255, 69, 0, 0.68)',
+            'rgb(255, 120, 0)',
+            'hsv(51, 100, 98)',
+            'hsva(120, 40, 94, 0.5)',
+            'hsl(181, 100%, 37%)',
+            'hsla(209, 100%, 56%, 0.73)',
+            '#c7158577',
+            ],
+            valueCascader: [],
+            optionsCascader: [{
+                    value: 'Times New Roman',
+                    label: 'Times New Roman'
+                },
+                {
+                    value: 'Georgia',
+                    label: 'Georgia'
+                },
+                {
+                    value: 'Arial',
+                    label: 'Arial'
+                },
+                {
+                    value: 'Comic Sans MS',
+                    label: 'Comic Sans MS'
+                },
+                {
+                    value: 'Impact',
+                    label: 'Impact'
+                },
+                {
+                    value: 'Tahoma',
+                    label: 'Tahoma'
+                },
+            ]
         }),
         mounted () {
         },
         methods: {
             changeSize (data) {
                 this.$emit('changeSize', data)
+            },
+            changePos (data) {
+                this.$emit('changePos', data)
             },
             deleteElement () {
                 this.$emit('deleteElement', this.id)
@@ -84,10 +131,20 @@
                     color: newValue
                 })
             },
-            changeFontSize(event) {
-                this.changeStyle({
-                    fontSize: event.target.value + 'px'
+            changeColorBackground(newValue){
+                this.changeStyle ({
+                    backgroundColor: newValue
                 })
+            },
+            changeFontSize(newValue) {
+                this.changeStyle({
+                    fontSize: newValue + 'px'
+                })
+            },
+            changeFontFamily(newValue){
+                this.changeStyle({
+                    fontFamily: newValue
+                })                
             },
             processWidth () {
                 
@@ -102,6 +159,16 @@
             height (newValue) {
                 this.changeSize({
                     height: newValue
+                })
+            },
+            x(newValue){
+                this.changePos({
+                    x: newValue
+                })
+            },
+            y(newValue){
+                this.changePos({
+                    y: newValue
                 })
             },
             fontSize (newValue) {
@@ -147,19 +214,6 @@
         display: inline-block;
     }
 
-    .palitra{
-        margin-top: 10%;
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    .palitraElement{
-        padding: 6%;
-        margin: 3%;
-        border-radius: 50%;
-    }
 
     input[type=input]{
         width: 20%;
@@ -185,37 +239,9 @@
         color: #185578;
     }
 
-    input[type=range] {
-    -webkit-appearance: none; /* Скрывает слайдер, чтобы можно было создать свой */
-    width: 50%; /* Указание параметра ширины требуется для Firefox. */
-    }
-    
-    input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    }
-    
-    input[type=range]:focus {
-    outline: none; /* Убирает голубую границу у элемента. Хотя, возможно, и стоит создавать некоторое оформления для состояния фокуса в целях обеспечения доступности. */
-    }
-    
-    input[type=range]::-ms-track {
-    width: 100%;
-    cursor: pointer;
-    background: transparent; /* Скрывает слайдер, чтобы можно было добавить собственные стили. */
-    border-color: transparent;
-    color: transparent;
-    }
+   .slider{
+        width: 70%;
+        
+   }
 
-    input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid #134969;
-    height: 15px;
-    width: 16px;
-    border-radius: 50%;
-    background: #2796d6;
-    cursor: pointer;
-    margin-top: -5px; 
-    margin-bottom: -5px;
-
-    }
 </style>

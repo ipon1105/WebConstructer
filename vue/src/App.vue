@@ -7,16 +7,16 @@
       class="container"
     >
     <!-- Блок с текстом -->
-    <!-- id, xCoord, yCoord это пропсы из TextBlock.vue -->
+    <!-- id, xCoord, yCoord это пропсы из BlockText.vue -->
       <div v-if="items.length > 0">
-        <TextBlock
+        <BlockText
           v-for="item in items"
           :key="item.id"
           :id="item.id"
           :selected-object-id="selectedObjectId"
           @object-selection="objectSelection"
           @delete-element="deleteElement"
-        ></TextBlock>
+        ></BlockText>
       </div>
     </div>
     <div class="objectMenu" id="optionsMenu">
@@ -27,14 +27,14 @@
 
 <script>
 
-import TextBlock from '@/components/TextBlock.vue'
+import BlockText from '@/components/BlockText.vue'
 import WidjetsMenu from '@/components/WidjetsMenu.vue'
 
 
 export default {
   name: 'App',
   components: {
-    TextBlock,
+    BlockText,
     WidjetsMenu,
   },
   data (){
