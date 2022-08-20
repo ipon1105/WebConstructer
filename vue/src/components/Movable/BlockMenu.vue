@@ -115,4 +115,9 @@ import BlockMenuCheckbox from '@/components/Menu/Fields/BlockMenuCheckbox.vue';
     color: #185578;
 }
 
+.widgetsMenuHeader {
+    text-align: center;
+    font-size: 20px;
+    padding: 0 1rem 1rem 1rem;
+}
 </style>

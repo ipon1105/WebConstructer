@@ -58,7 +58,7 @@ export default{
     },
     data: () => ({
         sizeChangePointers: [],
-        rotatePointerStyle: {},
+        // rotatePointerStyle: {},
         pointerSize: 12,
         borderSize: 2,
         directionMap: [
@@ -74,10 +74,7 @@ export default{
         styles: {},
         isElSelected: false,
         innerPos: {},
-        innerSize: {
-            width: 0,
-            height: 0
-        },
+        innerSize: {},
         mouseStartPos: {
             x: 0,
             y: 0
@@ -100,8 +97,6 @@ export default{
         document.documentElement.addEventListener('mousemove', this.dragMouseMove, true)
         document.documentElement.addEventListener('mousemove', this.sizeChangeMouseMove, true)
         document.documentElement.addEventListener('mousemove', this.rotateMouseMove, true)
-        this.innerSize = this.size
-        this.innerPos = this.pos
         for (let direction of this.directionMap) {
             let pointer = {}
             pointer.style = {
@@ -261,12 +256,28 @@ export default{
         },
         styles: {
             handler (newValue) {
-                newValue
-                // this.$emit('changeObject', newValue)
-                //this.innerSize.width = newValue.width
-                //this.innerSize.height = newValue.height
-                //this.innerPos.x = newValue.x
-                //this.innerPos.y = newValue.y
+                this.innerSize.width = newValue.width
+                this.innerSize.height = newValue.height
+                this.innerPos.y = newValue.top
+                this.innerPos.x = newValue.left
+            },
+            deep: true
+        },
+        innerSize: {
+            handler (newValue) {
+                this.$emit('changeObject', newValue.width, 'width')
+                this.$emit('changeObject', newValue.height, 'height')
+                this.styles.width = newValue.width
+                this.styles.height = newValue.height
+            },
+            deep: true
+        },
+        innerPos: {
+            handler (newValue) {
+                this.$emit('changeObject', newValue.y, 'top')
+                this.$emit('changeObject', newValue.x, 'left')
+                this.styles.top = newValue.y
+                this.styles.left = newValue.x
             },
             deep: true
         },

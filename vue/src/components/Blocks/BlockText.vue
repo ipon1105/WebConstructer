@@ -40,7 +40,6 @@ export default {
             if (typeof this.styles[field] !== 'undefined') {
                 this.styles[field] = value + (measure && measure != 'none' ? measure : '')
             }
-            console.log(this.styles)
         },
         onFocus () {
             this.isSelected = true
