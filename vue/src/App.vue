@@ -46,7 +46,6 @@ import BlockForm from '@/components/Blocks/BlockForm.vue'
 import BlockButton from '@/components/Blocks/BlockButton.vue'
 import WidgetsMenu from '@/components/Menu/WidgetsMenu.vue'
 
-
 export default {
   name: 'App',
   components: {
