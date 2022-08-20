@@ -1,4 +1,26 @@
-<!doctype html>
+{% extends 'web/header.html' %}
+    {% block title %}
+        {{title}}
+    {% endblock %}
+    {% block header_name %}
+        {{header_name}}
+    {% endblock %}
+    {% block content %}
+        <div class="container">
+            {% if projects %}
+            {% for el in projects %}
+                <div class="alert alert-warning mt-2">
+                    <h3>{{el.title}}</h3>
+                    <p>{{el.project}}</p>
+                </div>
+            {% endfor %}
+            {% else %}
+                <p>Нет ранее созданнных проектов</p>
+            {% endif %}
+        </div>
+    {% endblock %}
+
+<!--<!doctype html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
@@ -22,17 +44,7 @@
             </header>
         </div>
 
-        <div class="container">
-            {% if projects %}
-            {% for el in projects %}
-                <div class="alert alert-warning mt-2">
-                    <h3>{{el.title}}</h3>
-                    <p>{{el.project}}</p>
-                </div>
-            {% endfor %}
-            {% else %}
-                <p>Нет ранее созданнных проектов</p>
-            {% endif %}
-        </div>
+
     </body>
 </html>
+-->

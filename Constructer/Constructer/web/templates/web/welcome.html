@@ -10,15 +10,31 @@
             <p>Здравсвуйте дороги друзья. Это наше решение кейса от AGORA по созданию web-конструктора. На данный момент вы видите экран приветствия. Он вам расскажет как работает наш сайт.
             В первую очередь давайте обратим внимание на верхнюю панель. Она помогает нам ориентироваться в конструкторе. Я предлагаю вам нажать кнопку зарегистрироваться или если вы уже зарегистрировались, то можете войти и рассмотреть программу во всей её красе.</p>
         </div>
-        {% if form %}
+
+        {% if form_reg %}
+
         <br>
         <div class="container">
-            <form action="{% url 'register' %}" method="post">
-                {{form}}
+            <form action="{% url 'welcome_register' %}" method="post">
+                {{form_reg}}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">submit</button>
+            </form>
+        </div>
+        <br>
+
+        {% endif %}
+        {% if form_log%}
+
+        <br>
+        <div class="container">
+            <form action="{% url 'welcome_login' %}" method="post">
+                {{form_log}}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-success">submit</button>
             </form>
         </div>
         <br>
         {% endif %}
+
     {% endblock %}
