@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm, TextInput
 
-from Constructer.Constructer.web.models import Project
+from .models import Project
 
 User = get_user_model()
 
