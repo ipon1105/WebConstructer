@@ -11,7 +11,16 @@ def home(request):
     # переменная projects - хранит массив всех проектов пользователя
 
     context = {
-        'user': request.user,
+        'title': 'Домашняя страница',
+        'projects': []
+    }
+    return render(request, 'web/home.html', context)
+
+
+def home_new(request):
+    # переменная projects - хранит массив всех проектов пользователя
+
+    context = {
         'title': 'Домашняя страница',
         'projects': []
     }
@@ -46,10 +55,12 @@ def welcome_register(request):
 
 def welcome_login(request):
 
-    myForm = AuthenticationForm(request.POST)
+    #TODO: Разобраться с корректностью вводимых данных
+    #myForm = AuthenticationForm(request.POST)
+    #if myForm.is_valid():
+    #    return welcome(request)
 
     if request.POST:
-        #return welcome(request)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
