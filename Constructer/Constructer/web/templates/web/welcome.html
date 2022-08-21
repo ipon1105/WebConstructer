@@ -15,6 +15,9 @@
 
         <br>
         <div class="container">
+            {% if form_reg.errors %}
+            <p>{{form_reg.errors.error}}</p>
+            {% endif %}
             <form action="{% url 'welcome_register' %}" method="post">
                 {{form_reg}}
                 {% csrf_token %}
@@ -28,6 +31,9 @@
 
         <br>
         <div class="container">
+            {% if form_log.errors %}
+                <p>{{form_log.errors.error}}</p>
+            {% endif %}
             <form action="{% url 'welcome_login' %}" method="post">
                 {{form_log}}
                 {% csrf_token %}
