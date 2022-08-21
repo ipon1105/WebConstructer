@@ -55,11 +55,6 @@ export default {
                 title: 'Поле ввода',
                 name: 'Input',
             },
-            {
-                id: 8,
-                title: 'Кнопка',
-                name: 'Button',
-            },
         ],
         blockMenuData: {
             1: [

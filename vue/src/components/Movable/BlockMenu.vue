@@ -1,22 +1,22 @@
 <template>
-    <div class="widjetsMenu">
-        <p class="widgetsMenuHeader">
-            Настройка виджета
-        </p>
-        <div v-for="field in getBlockMenuDataById[parentId]" :key="field">
-            <component
-                :is="'BlockMenu' + field.type"
-                :title="field.title"
-                :additional-data="field.additionalData"
-                :val="menuBlockData[field.field]"
-                @blockChange="handleBlockChange($event, field.field)"
-            >
-            </component>
-        </div>
+    <div class="widjetsMenu" style="background-color: #1C2A33; position: fixed;">
+        <el-scrollbar height="100%" style="position: fixed;  padding-left: 1%; background-color: #1C2A33;">
+            <p class="widgetsMenuHeader">
+                Настройка виджета
+            </p>
+            <div v-for="field in getBlockMenuDataById[parentId]" :key="field">
+                <component
+                    :is="'BlockMenu' + field.type"
+                    :title="field.title"
+                    :additional-data="field.additionalData"
+                    :val="menuBlockData[field.field]"
+                    @blockChange="handleBlockChange($event, field.field)"
+                >
+                </component>
+            </div>
 
-        <button class="buttonDelete" @click="deleteElement">Удалить</button>
-
-        
+            <button class="buttonDelete" @click="deleteElement">Удалить</button> 
+        </el-scrollbar> 
     </div>
 </template>
 
@@ -95,10 +95,11 @@ import BlockMenuCheckbox from '@/components/Menu/Fields/BlockMenuCheckbox.vue';
 
 <style scoped>
 .widjetsMenu{
-    width:95%;
-    padding-left: 5%;
+    width:100%;
+    /* padding-left: 1%; */
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: #DDD;
+    background-color: #1C2A33;
 }
 
 .buttonDelete{
@@ -108,6 +109,7 @@ import BlockMenuCheckbox from '@/components/Menu/Fields/BlockMenuCheckbox.vue';
     color: #FFFFFF;
     border-radius: 4%;
     padding: 3%;
+    margin-bottom: 10%;
 }
 
 .buttonDelete:hover{

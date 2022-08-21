@@ -4,37 +4,48 @@
     :style="windowStyle"
   > 
     <!-- Меню с кнопками -->
-    <el-container>
-      <el-aside :width="menuWidth">
-        <div class="menu">
-          <WidgetsMenu @add-block="addBlock"></WidgetsMenu>
-        </div>
-      </el-aside>
-    <!-- Общее поле, где можно перемещать элементы -->
-      <el-main>
-        <div
-          class="container"
-        >
-        <!-- Блок с текстом -->
-          <component
-            v-for="item in items"
-            :key="item.id"
-            :is="item.name"
-            :id="item.id"
-            :parent-id="item.parentBlockId"
-            :selected-object-id="selectedObjectId"
-            @object-selection="objectSelection"
-            @delete-element="deleteBlock"
-          ></component>
-        </div>
-      </el-main>
-      <el-aside :width="menuWidth">
-        <div class="objectMenu" id="optionsMenu">
-        </div>
-      </el-aside>
+    <el-container> 
+          <el-aside :width="menuWidth">
+            <el-scrollbar height="100%" style="position: fixed; width: 20%;">
+              <div class="menu">
+                <WidgetsMenu @add-block="addBlock"></WidgetsMenu>
+              </div>
+            </el-scrollbar>
+          </el-aside>
+      <!-- Общее поле, где можно перемещать элементы -->
+      <el-container>
+        <el-header class="header">
+          <el-button class="btnAccept" type="success">Сохранить</el-button>
+        </el-header>
+        <el-main>
+          <div
+            class="container"
+          >
+          <!-- Блок с текстом -->
+            <component
+              v-for="item in items"
+              :key="item.id"
+              :is="item.name"
+              :id="item.id"
+              :parent-id="item.parentBlockId"
+              :selected-object-id="selectedObjectId"
+              @object-selection="objectSelection"
+              @delete-element="deleteBlock"
+            ></component>
+          </div>
+        </el-main>
+      </el-container>
+        <el-aside :width="menuWidth">
+          <div class="objectMenu" id="optionsMenu">
+          </div>
+        </el-aside>
     </el-container>
   </div>
+
+ 
+
 </template>
+
 
 <script>
 import { mapGetters } from 'vuex'
@@ -158,5 +169,13 @@ body{
   margin: 0;
   width: 100%;
   height: 100%;
+}
+
+.header{
+  background-color: #2d4c5f;
+}
+
+.btnAccept{
+  margin-top: 1%;
 }
 </style>
