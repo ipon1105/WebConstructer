@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.views import View
 
 from .serializers import WidgetSerializer, WidgetPropertySerializer, ProjectSerializer
 from django.contrib.auth import authenticate, login, logout
@@ -7,6 +8,9 @@ from .models import Project, Widget, WidgetProperty
 from .forms import UserCreationForm, NewProjectForm
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
+
+import json
+
 
 
 class WidgetViewSet(viewsets.ModelViewSet):
@@ -43,13 +47,6 @@ def edit(request, id):
     }
     return render(request, 'web/home.html', context)
     pass
-
-
-# TODO: Перенаправлять на новую страницу
-def ceate(request):
-
-    pass
-
 
 def home(request):
     if request.user.id == None:
@@ -148,3 +145,17 @@ def welcome(request):
         'header_name': 'Здравствуйте.',
     }
     return render(request, 'web/welcome.html', context)
+
+
+class FrontendTemplateView(View):
+    def post(self, request):
+        # Собираем все параметры запроса в контекст
+        context = {
+            'post_data': request.body,
+            'get_data': json.dumps(request.GET)  # Сериализуем в JSON
+        }
+
+        # Отправляем клиенту отрендеренный с контекстом шаблон
+        return render(request, 'index.html', context)
+    pass
+

@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 from . import views
@@ -7,6 +8,7 @@ from . import views
 from django.urls import include, path
 from rest_framework import routers
 from . import views
+from .views import FrontendTemplateView
 
 router = routers.DefaultRouter()
 router.register(r'widgets', views.WidgetViewSet)
@@ -20,7 +22,8 @@ urlpatterns = [
 
 
 urlpatterns = urlpatterns + [
-    path('', views.welcome, name="welcome"),
+    path('', FrontendTemplateView.as_view()),
+    #path('', views.welcome, name="welcome"),
     path('welcome', views.welcome, name="welcome"),
     path('home', views.home, name="home"),
     path('home/new', views.home_new, name="home_new"),
@@ -32,3 +35,4 @@ urlpatterns = urlpatterns + [
 
     path('home/edit/<int:id>', views.edit)
 ]
+urlpatterns += staticfiles_urlpatterns()
