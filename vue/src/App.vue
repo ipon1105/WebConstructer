@@ -6,17 +6,15 @@
     <!-- Меню с кнопками -->
     <el-container> 
           <el-aside :width="menuWidth">
-            <el-scrollbar height="100%" style="position: fixed; width: 20%;">
-              <div class="menu">
+              <div class="menu" style="position: fixed; width: 20%;">
                 <WidgetsMenu @add-block="addBlock"></WidgetsMenu>
               </div>
-            </el-scrollbar>
           </el-aside>
       <!-- Общее поле, где можно перемещать элементы -->
       <el-container>
-        <el-header class="header">
-          <el-button class="btnAccept" type="success">Сохранить</el-button>
-        </el-header>
+        <!-- <el-header class="header"> -->
+          <!-- <el-button class="btnAccept" type="success">Сохранить</el-button> -->
+        <!-- </el-header> -->
         <el-main>
           <div
             class="container"
@@ -88,6 +86,10 @@ export default {
       return this.getMenuWidth + '%'
     }
   },
+  created () {
+    this.$store.dispatch('fetchMenuData')
+    this.$store.dispatch('fetchBlockMenuData')
+  },
 
   mounted () {
     for (let widget of this.getMenuData) {
@@ -103,6 +105,7 @@ export default {
         this.selectedObjectId = this.items.find((el) => block.name == el.name).id
         return
       }
+      this.selectedObjectId = this.items.length
       this.items.push({
         id: this.items.length,
         name: 'Block' + block.name,

@@ -17,7 +17,7 @@
                 <BlockMenu
                     :parent-id="parentId"
                     :style-data="styleData"
-                    @deleteElement="deleteElement"
+                    @delete-element="deleteElement"
                     @changeObject="handleBlockChange"
                 ></BlockMenu>
             </Teleport>
@@ -71,7 +71,7 @@ export default {
         },
         handleBlockChange (value, field) {
             this.styleData[field] = value
-            this.$emit('changeStyles', value, field, this.getBlockMenuDataById[this.parentId].find((el) => el.field == field).measure)
+            this.$emit('changeStyles', value, field, this.getBlockMenuDataById[this.parentId].find((el) => el.field == field) ? this.getBlockMenuDataById[this.parentId].find((el) => el.field == field).measure : null)
         },
         deleteElement () {
             this.$emit('deleteElement', this.id)

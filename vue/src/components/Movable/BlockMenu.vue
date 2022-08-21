@@ -1,22 +1,19 @@
 <template>
-    <div class="widjetsMenu" style="background-color: #1C2A33; position: fixed;">
-        <el-scrollbar height="100%" style="position: fixed;  padding-left: 1%; background-color: #1C2A33;">
-            <p class="widgetsMenuHeader">
-                Настройка виджета
-            </p>
-            <div v-for="field in getBlockMenuDataById[parentId]" :key="field">
-                <component
-                    :is="'BlockMenu' + field.type"
-                    :title="field.title"
-                    :additional-data="field.additionalData"
-                    :val="menuBlockData[field.field]"
-                    @blockChange="handleBlockChange($event, field.field)"
-                >
-                </component>
-            </div>
-
-            <button class="buttonDelete" @click="deleteElement">Удалить</button> 
-        </el-scrollbar> 
+    <div class="widjetsMenu" style="background-color: #1C2A33; position: fixed; width: 20%; padding: 1rem;">
+        <p class="widgetsMenuHeader">
+            Настройка виджета
+        </p>
+        <div v-for="field in getBlockMenuDataById[parentId]" :key="field">
+            <component
+                :is="'BlockMenu' + field.type"
+                :title="field.title"
+                :additional-data="field.additionalData"
+                :val="menuBlockData[field.field]"
+                @blockChange="handleBlockChange($event, field.field)"
+            >
+            </component>
+        </div>
+        <button class="buttonDelete" @click="deleteElement">Удалить</button> 
     </div>
 </template>
 
@@ -66,6 +63,9 @@ import BlockMenuCheckbox from '@/components/Menu/Fields/BlockMenuCheckbox.vue';
             handleBlockChange (value, field) {
                 this.menuBlockData[field] = value
                 this.$emit('changeObject', value, field)
+            },
+            deleteElement () {
+                this.$emit('deleteElement')
             }
         },
         watch: {

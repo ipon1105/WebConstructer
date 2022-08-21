@@ -121,8 +121,17 @@ export default{
             const formattedStyleData = {
                 position: 'absolute'
             }
+            if (!this.getBlockMenuDataById[this.parentId]) {
+                return
+            }
             for (let field of this.getBlockMenuDataById[this.parentId]) {
                 formattedStyleData[field.field] = (field.values ? field.values[this.styles[field.field]] : ('' + this.styles[field.field] + (field.measure && field.measure != 'none' ? field.measure : '')))
+                if (field.field == 'left') {
+                    formattedStyleData[field.field] = 'calc(' + this.getMenuWidth + '% + ' + (field.values ? field.values[this.styles[field.field]] : ('' + this.styles[field.field] + (field.measure && field.measure != 'none' ? field.measure : ''))) + ')'
+                }
+                if (field.field == 'height') {
+                    formattedStyleData[field.field] = (field.values ? field.values[this.styles[field.field]] : (this.styles[field.field] + (field.measure && field.measure != 'none' ? field.measure : '')))
+                }
             }
             return formattedStyleData
         },
@@ -202,12 +211,12 @@ export default{
                     if (this.curDir.includes('n')) {
                         diffY = (this.startSize.height + (event.clientY - this.mouseStartPos.y) * -1) - (this.startSize.height + (event.clientY - this.mouseStartPos.y) * -1) % this.gridSize
                         if (this.innerPos.y > 0) {
-                            this.innerPos.y += this.prevValue.y - diffY
+                            this.innerPos.y -= (this.prevValue.y - diffY) * -1
                         } else {
                             if (diffY >= this.innerSize.height) {
                                 diffY = this.innerSize.height
                             } else {
-                                this.innerPos.y += this.prevValue.y - diffY
+                                this.innerPos.y -= (this.prevValue.y - diffY) * -1
                             }
                         }
                     } else {
@@ -216,7 +225,7 @@ export default{
                     if (diffY >= this.gridSize) {
                         this.innerSize.height = diffY
                     }
-                    this.prevValue.y = diffY
+                    this.prevValue.y = Number(diffY)
                 }
             }
         },

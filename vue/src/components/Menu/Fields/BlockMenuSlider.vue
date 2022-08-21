@@ -7,8 +7,6 @@
             size="large"
             v-model="value"
             class="slider"
-            :min="additionalData[0]"
-            :max="additionalData[1]"
         />
     </div>
 </template>
