@@ -34,7 +34,7 @@ export default
 
 <style>
     .btn{
-        width:60px;
-        height: 40px;
+        width: 100%;
+        height: 100%;
     }
 </style>
