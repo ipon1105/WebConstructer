@@ -16,3 +16,5 @@ python -m manage migrate
 
 Для запуска сервера
 python -m manage runserver 0.0.0.0:8000
+
+Если у вас не запускается, докачайте необходимые модули
