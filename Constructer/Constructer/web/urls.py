@@ -22,8 +22,8 @@ urlpatterns = [
 
 
 urlpatterns = urlpatterns + [
-    path('', FrontendTemplateView.as_view()),
-    #path('', views.welcome, name="welcome"),
+    #path('', FrontendTemplateView.as_view()),
+    path('', views.welcome, name="welcome"),
     path('welcome', views.welcome, name="welcome"),
     path('home', views.home, name="home"),
     path('home/new', views.home_new, name="home_new"),
